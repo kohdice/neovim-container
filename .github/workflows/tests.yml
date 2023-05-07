@@ -1,0 +1,23 @@
+name: Continuous Integration of neovim container building
+
+run-name: ${{ github.actor }} is testing out neovim container building
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os}}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Build neovim container
+        run: docker compose up -d
