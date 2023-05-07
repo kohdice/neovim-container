@@ -2,16 +2,13 @@ FROM ubuntu:22.04
 
 LABEL maintainer="kohdice <kohdice@gmail.com>"
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV GOPATH=$HOME/go
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONPATH=/root/workspace
 ENV POETRY_HOME=/opt/poetry
-ENV GOPATH=$HOME/go
-
-RUN apt-get update && apt-get install -y tzdata
 ENV TZ=Asia/Tokyo
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     curl \
     exa \
     gcc \
@@ -21,6 +18,7 @@ RUN apt-get update && apt-get install -y \
     make \
     peco \
     tmux \
+    tzdata \
     sudo \
     ninja-build \
     gettext \
